@@ -53,7 +53,7 @@ int Minheapeap::extractMin() {
         if (size <= 0)
                 return INT_MAX;
         if (size == 1) {
-                size--;
+                size = size - 1;
                 return list[0];
         }
         int root = list[0];
