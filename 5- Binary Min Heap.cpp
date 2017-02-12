@@ -59,7 +59,7 @@ int MinHeap::ExtractMin() {
         if (size <= 0)
                 return INT_MAX;
         if (size == 1) {
-                size = size - 1;
+                size--;
                 return list[0];
         }
         int root = list[0];
@@ -89,17 +89,17 @@ void MinHeap::MinHeapify(int i) {
 }
 
 int main() {
-        MinHeap heap(11);
-        heap.InsertKey(3);
-        heap.InsertKey(2);
-        heap.DeleteKey(1);
-        heap.InsertKey(15);
-        heap.InsertKey(5);
-        heap.InsertKey(4);
-        heap.InsertKey(45);
-        cout << heap.ExtractMin() << endl;
-        cout << heap.GetMin() << endl;
-        heap.UpdateKey(2, 1);
-        cout << heap.GetMin() << endl;
+        MinHeap *hp = new MinHeap(10);
+        hp->InsertKey(3);
+        hp->InsertKey(2);
+        hp->DeleteKey(1);
+        hp->InsertKey(15);
+        hp->InsertKey(5);
+        hp->InsertKey(4);
+        hp->InsertKey(45);
+        cout << hp->ExtractMin() << endl;
+        cout << hp->GetMin() << endl;
+        hp->UpdateKey(2, 1);
+        cout << hp->GetMin() << endl;
         return 0;
 }
