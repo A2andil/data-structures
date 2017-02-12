@@ -5,27 +5,26 @@ using namespace std;
 
 class Fenwick {
 private:
-        int *BITree, size;
+        int *BITree;
 public:
-        Fenwick(int sz,int *arr) {
-                this->size = sz;
+        Fenwick(int sz, int *arr) {
                 BITree = new int[sz + 1];
                 for (int i = 1; i <= sz; i++)
                         BITree[i] = 0;
                 for (int i = 0; i < sz; i++)
-                        updateBIT(sz, i, arr[i]);
+                        UpdateBIT(sz, i, arr[i]);
 
         }
         int GetSum(int index) {
-                int sum = 0;
+                int rs = 0;
                 index = index + 1;
                 while (index > 0) {
-                        sum += BITree[index];
+                        rs += BITree[index];
                         index -= index & (-index);
                 }
-                return sum;
+                return rs;
         }
-        void updateBIT(int n, int index, int val) {
+        void UpdateBIT(int n, int index, int val) {
                 index = index + 1;
                 while (index <= n) {
                         BITree[index] += val;
@@ -41,7 +40,7 @@ int main() {
         Fenwick *BIT = new Fenwick(n, arr);
         cout << "Sum of elements in arr[0..5] is " << BIT->GetSum(5) << endl;
         arr[3] += 6;
-        BIT->updateBIT(n, 3, 6);
+        BIT->UpdateBIT(n, 3, 6);
         cout << "Sum of elements in arr[0..5] is " << BIT->GetSum(5) << endl;
         return 0;
 }
