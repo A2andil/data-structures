@@ -1,6 +1,5 @@
 //in the name of God
 
-// A C++ program to demonstrate common Binary Heap Operations
 #include<iostream>
 #include<climits>
 using namespace std;
