@@ -12,12 +12,6 @@ private:
 public:
         Minheapeap(int capacity);
         void Minheapeapify(int);
-        int left(int i) {
-                return 2 * i + 1;
-        }
-        int righeapt(int i) {
-                return 2 * i + 2;
-        }
         int extractMin();
         void decreaseKey(int i, int value);
         int getMin() {
