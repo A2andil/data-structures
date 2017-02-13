@@ -34,6 +34,15 @@ private:
                         BuildSTUtil(list, md + 1, e, i * 2 + 2);
                 return ST[i];
         }
+        int GetSumUtil(int ss, int se, int qs, int qe, int si) {
+                if (qs <= ss && qe >= se)
+                        return ST[si];
+                if (se < qs || ss > qe)
+                        return 0;
+                int md = ss + (se - ss) / 2;
+                return GetSumUtil(ss, md, qs, qe, 2 * si + 1) +
+                        GetSumUtil(md + 1, se, qs, qe, 2 * si + 2);
+        }
 public:
         SegmentTree(int *list, int n) {
                 int sz = 2 * Pow(2, ceil(log2(n))) - 1;
@@ -46,15 +55,6 @@ public:
                         return -1;
                 }
                 return GetSumUtil(0, n - 1, s, e, 0);
-        }
-        int GetSumUtil(int ss, int se, int qs, int qe, int si) {
-                if (qs <= ss && qe >= se)
-                        return ST[si];
-                if (se < qs || ss > qe)
-                        return 0;
-                int md = ss + (se - ss) / 2;
-                return GetSumUtil(ss, md, qs, qe, 2 * si + 1) +
-                        GetSumUtil(md + 1, se, qs, qe, 2 * si + 2);
         }
         void UpdateValue(int *list, int n, int i, int value) {
                 if (i < 0 || i > n - 1) {
