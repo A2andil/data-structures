@@ -14,11 +14,15 @@ private:
                 int rs = Pow(b, n / 2);
                 return n % 2 ? rs * rs * b : rs * rs;
         }
-public:
-        SegmentTree(int *list, int n) {
-                int sz = 2 * Pow(2, ceil(log2(n))) - 1;
-                ST = new int[sz];
-                BuildSTUtil(list, 0, n - 1, 0);
+        void UpdateValueUtil(int ss, int se, int i, int dif, int si) {
+                if (i < ss || i > se)
+                        return;
+                ST[si] = ST[si] + dif;
+                if (se != ss) {
+                        int md = ss + (se - ss) / 2;
+                        UpdateValueUtil(ss, md, i, dif, 2 * si + 1);
+                        UpdateValueUtil(md + 1, se, i, dif, 2 * si + 2);
+                }
         }
         int BuildSTUtil(int *list, int s, int e, int i) {
                 if (s == e) {
@@ -29,6 +33,12 @@ public:
                 ST[i] = BuildSTUtil(list, s, md, i * 2 + 1) +
                         BuildSTUtil(list, md + 1, e, i * 2 + 2);
                 return ST[i];
+        }
+public:
+        SegmentTree(int *list, int n) {
+                int sz = 2 * Pow(2, ceil(log2(n))) - 1;
+                ST = new int[sz];
+                BuildSTUtil(list, 0, n - 1, 0);
         }
         int GetSum(int n, int s, int e) {
                 if (s < 0 || e > n - 1 || s > e) {
@@ -55,16 +65,6 @@ public:
                 list[i] = value;
                 UpdateValueUtil(0, n - 1, i, dif, 0);
         }
-        void UpdateValueUtil(int ss, int se, int i, int dif, int si) {
-                if (i < ss || i > se)
-                        return;
-                ST[si] = ST[si] + dif;
-                if (se != ss) {
-                        int md = ss + (se - ss) / 2;
-                        UpdateValueUtil(ss, md, i, dif, 2 * si + 1);
-                        UpdateValueUtil(md + 1, se, i, dif, 2 * si + 2);
-                }
-        }
 };
 
 int main() {
@@ -72,7 +72,7 @@ int main() {
         int n = sizeof(list) / sizeof(int);
         SegmentTree *STree = new SegmentTree(list, n);
         cout << "Sum of values in given range = " << STree->GetSum(n, 1, 3) << endl;
-        STree->UpdateValue(list, n, 1, 10);
+        STree->UpdateValue(list, n, 1, 9);
         cout << "sum of values in given range = " << STree->GetSum(n, 1, 3) << endl;
         return 0;
 }
