@@ -14,16 +14,6 @@ private:
                 int rs = Pow(b, n / 2);
                 return n % 2 ? rs * rs * b : rs * rs;
         }
-        void UpdateValueUtil(int ss, int se, int i, int dif, int si) {
-                if (i < ss || i > se)
-                        return;
-                ST[si] = ST[si] + dif;
-                if (se != ss) {
-                        int md = ss + (se - ss) / 2;
-                        UpdateValueUtil(ss, md, i, dif, 2 * si + 1);
-                        UpdateValueUtil(md + 1, se, i, dif, 2 * si + 2);
-                }
-        }
         int BuildSTUtil(int *list, int s, int e, int i) {
                 if (s == e) {
                         ST[i] = list[s];
@@ -42,6 +32,16 @@ private:
                 int md = ss + (se - ss) / 2;
                 return GetSumUtil(ss, md, qs, qe, 2 * si + 1) +
                         GetSumUtil(md + 1, se, qs, qe, 2 * si + 2);
+        }
+        void UpdateValueUtil(int ss, int se, int i, int dif, int si) {
+                if (i < ss || i > se)
+                        return;
+                ST[si] = ST[si] + dif;
+                if (se != ss) {
+                        int md = ss + (se - ss) / 2;
+                        UpdateValueUtil(ss, md, i, dif, 2 * si + 1);
+                        UpdateValueUtil(md + 1, se, i, dif, 2 * si + 2);
+                }
         }
 public:
         SegmentTree(int *list, int n) {
