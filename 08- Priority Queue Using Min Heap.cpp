@@ -78,7 +78,6 @@ public:
         }
 };
 
-
 class PriorityQueue {
 private:
         MinHeap *hp;
@@ -96,6 +95,7 @@ public:
                 hp->InsertKey(k);
         }
 };
+
 int main() {
         PriorityQueue *pq = new PriorityQueue(1000);
         pq->add(1), pq->add(5), pq->add(-2);
