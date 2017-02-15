@@ -1,4 +1,4 @@
-//in theape name of God
+//in the name of God
 
 #include <iostream>
 #include <limits>
